@@ -1,4 +1,4 @@
-\# Diabetes Risk Screening App
+ Diabetes Risk Screening App
 
 
 
@@ -6,19 +6,19 @@ A machine learning web application that estimates diabetes risk from health indi
 
 
 
-\- \*\*Author:\*\* Frederick Galinato
+Author: Frederick Galinato
 
-\- \*\*Course / Section:\*\* BSCpE CSCU3
+Course / Section: BSCpE CSCU3
 
-\- \*\*School Year:\*\* 2026
-
-
-
-\---
+School Year:2026
 
 
 
-\## 1. Problem Statement
+
+
+
+
+Problem Statement
 
 
 
@@ -30,27 +30,27 @@ This tool is not a medical diagnosis. It is an educational screening prototype.
 
 
 
-\## 2. Dataset
+Dataset
 
 
 
-\- \*\*Source:\*\* CDC Behavioral Risk Factor Surveillance System (BRFSS) 2015, distributed via the UCI Machine Learning Repository (dataset ID 891).
+Source: CDC Behavioral Risk Factor Surveillance System (BRFSS) 2015, distributed via the UCI Machine Learning Repository (dataset ID 891).
 
-\- \*\*URL:\*\* https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators
+URL: https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators
 
-\- \*\*Records:\*\* 253,680 original observations.
+Records: 253,680 original observations.
 
-\- \*\*Features:\*\* 21 health, lifestyle, and demographic indicators.
+Features:21 health, lifestyle, and demographic indicators.
 
-\- \*\*Target:\*\* Diabetes\_binary — 0 = no diabetes, 1 = diabetes or prediabetes.
+Target:Diabetes\_binary — 0 = no diabetes, 1 = diabetes or prediabetes.
 
-\- \*\*Class distribution:\*\* 218,334 (86.1%) non-diabetic, 35,346 (13.9%) diabetic. Handled with class\_weight set to balanced.
+Class distribution: 218,334 (86.1%) non-diabetic, 35,346 (13.9%) diabetic. Handled with class\_weight set to balanced.
 
-\- \*\*Preprocessing:\*\* No missing values. Features already numeric-coded. StandardScaler applied for the logistic regression baseline only; tree-based models used raw features.
+Preprocessing: No missing values. Features already numeric-coded. StandardScaler applied for the logistic regression baseline only; tree-based models used raw features.
 
 
 
-\## 3. Machine Learning Approach
+ Machine Learning Approach
 
 
 
@@ -74,7 +74,7 @@ Model selection rationale: For a screening tool, missing a diabetic case (false 
 
 
 
-\## 4. Application Features
+Application Features
 
 
 
@@ -86,15 +86,15 @@ Required:
 
 
 
-\- Input: Multi-step form covering all 21 model features, with human-readable labels, dropdowns for categorical fields, bounded number inputs, and a short explanation under each field.
+Input: Multi-step form covering all 21 model features, with human-readable labels, dropdowns for categorical fields, bounded number inputs, and a short explanation under each field.
 
-\- Prediction: Each submission is passed through the trained Hist Gradient Boosting model.
+Prediction: Each submission is passed through the trained Hist Gradient Boosting model.
 
-\- Results: A three-band risk categorization (Lower / Moderate / Higher) with the estimated probability and tailored advice.
+ Results: A three-band risk categorization (Lower / Moderate / Higher) with the estimated probability and tailored advice.
 
-\- Validation: Empty fields and non-numeric input produce clear error messages. Numerical fields are range-bounded in HTML.
+ Validation: Empty fields and non-numeric input produce clear error messages. Numerical fields are range-bounded in HTML.
 
-\- Usable interface: Multi-step flow (intro to 4 form steps to result) with progress bar, back navigation, and a prominent "not a medical diagnosis" disclaimer on both the intro and result pages.
+Usable interface: Multi-step flow (intro to 4 form steps to result) with progress bar, back navigation, and a prominent "not a medical diagnosis" disclaimer on both the intro and result pages.
 
 
 
@@ -102,31 +102,31 @@ Additional:
 
 
 
-\- Answer review: The result page shows every submitted answer in plain English so users can verify or edit.
+Answer review: The result page shows every submitted answer in plain English so users can verify or edit.
 
-\- PDF export: A "Print / Save as PDF" button generates a clean, printable record the user can share with a doctor. Print-specific CSS hides interactive buttons from the PDF.
+ PDF export: A "Print / Save as PDF" button generates a clean, printable record the user can share with a doctor. Print-specific CSS hides interactive buttons from the PDF.
 
-\- Session persistence: Answers are stored per-user across steps; the Back button preserves previous inputs.
-
-
-
-\## 5. Tech Stack
+Session persistence: Answers are stored per-user across steps; the Back button preserves previous inputs.
 
 
 
-\- Python 3.11
-
-\- pandas — data loading and preprocessing
-
-\- scikit-learn — model training, evaluation, splitting, scaling
-
-\- Flask — web server and Jinja2 template rendering
-
-\- joblib — model serialization
+Tech Stack
 
 
 
-\## 6. How to Run Locally
+ Python 3.11
+
+ pandas — data loading and preprocessing
+
+scikit-learn — model training, evaluation, splitting, scaling
+
+Flask — web server and Jinja2 template rendering
+
+joblib — model serialization
+
+
+
+How to Run Locally
 
 
 
@@ -162,7 +162,7 @@ Open http://127.0.0.1:5000 in your browser.
 
 
 
-\## 7. Project Structure
+Project Structure
 
 
 
@@ -196,7 +196,7 @@ Open http://127.0.0.1:5000 in your browser.
 
 
 
-\## 8. Limitations
+Limitations
 
 
 
@@ -204,19 +204,19 @@ This tool is a screening starting point, not a diagnostic tool.
 
 
 
-\- Self-reported inputs. BMI is what the user types, not a measurement. All other features are survey responses. No blood tests or clinical measurements are used.
+Self-reported inputs. BMI is what the user types, not a measurement. All other features are survey responses. No blood tests or clinical measurements are used.
 
-\- US-based training data. The model was trained on BRFSS 2015 (US respondents). It has not been validated on Philippine populations.
+US-based training data. The model was trained on BRFSS 2015 (US respondents). It has not been validated on Philippine populations.
 
-\- Precision on flagged cases is roughly 30 percent. Of 100 people the tool flags as higher risk, about 30 actually have diabetes or prediabetes. This is acceptable for screening but means "Higher risk" is a prompt to get checked, not a prediction.
+Precision on flagged cases is roughly 30 percent. Of 100 people the tool flags as higher risk, about 30 actually have diabetes or prediabetes. This is acceptable for screening but means "Higher risk" is a prompt to get checked, not a prediction.
 
-\- Age dominates the prediction. In the CDC data, diabetes prevalence in the 18-24 group is very low. Young users with multiple risk factors may receive lower scores than their clinical profile would suggest. This is a property of the training distribution, not a coding bug.
+Age dominates the prediction. In the CDC data, diabetes prevalence in the 18-24 group is very low. Young users with multiple risk factors may receive lower scores than their clinical profile would suggest. This is a property of the training distribution, not a coding bug.
 
-\- Not a substitute for clinical judgment. Every result page carries a visible disclaimer stating this is not a medical diagnosis.
+Not a substitute for clinical judgment. Every result page carries a visible disclaimer stating this is not a medical diagnosis.
 
 
 
-\## 9. Notes on Earlier Iteration
+Notes on Earlier Iteration
 
 
 
@@ -224,7 +224,7 @@ An early version of this project attempted a phishing URL detection task using t
 
 
 
-\## 10. AI Tools Disclosure
+AI Tools Disclosure
 
 
 
@@ -232,15 +232,15 @@ The following AI tools were used during development:
 
 
 
-\- Claude (Anthropic) — used for code scaffolding, explanation of ML concepts, debugging assistance, and UI templating. All code was reviewed, executed, and validated by the author. The author is able to explain every part of the code and the model selection rationale.
+Claude (Anthropic) — used for code scaffolding, explanation of ML concepts, debugging assistance, and UI templating. All code was reviewed, executed, and validated by the author. The author is able to explain every part of the code and the model selection rationale.
 
 
 
-\## 11. Acknowledgments
+Acknowledgments
 
 
 
-\- Dataset: CDC Behavioral Risk Factor Surveillance System (BRFSS) 2015, via the UCI Machine Learning Repository.
+ Dataset: CDC Behavioral Risk Factor Surveillance System (BRFSS) 2015, via the UCI Machine Learning Repository.
 
-\- Course: CpE Elective 1 — Applied Machine Learning and Software Development.
+Course: CpE Elective 1 — Applied Machine Learning and Software Development.
 
