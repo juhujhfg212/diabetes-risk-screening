@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step {{ step }} of {{ total_steps }} — Diabetes Risk Screening</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+            max-width: 720px; margin: 30px auto; padding: 0 20px;
+            background: #f4f6f8; color: #1f2933; line-height: 1.5;
+        }
+        .progress-bar {
+            display: flex; gap: 6px; margin-bottom: 20px;
+        }
+        .progress-bar .seg {
+            flex: 1; height: 8px; background: #d9e2ec; border-radius: 4px;
+        }
+        .progress-bar .seg.done { background: #0b5c9c; }
+        .progress-bar .seg.current { background: #3a9bd8; }
+        .step-label { font-size: 13px; color: #52606d; margin-bottom: 4px; }
+        h1 { color: #0b5c9c; font-size: 26px; margin: 0 0 6px; }
+        .subtitle { color: #52606d; margin: 0 0 22px; font-size: 15px; }
+        .card {
+            background: white; border-radius: 10px; padding: 26px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 20px;
+        }
+        .field { margin-bottom: 22px; }
+        label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 4px; color: #1f2933; }
+        .hint { font-size: 13px; color: #7b8794; margin-bottom: 8px; display: block; }
+        input[type="number"], select {
+            width: 100%; padding: 10px 12px; border: 1px solid #cbd2d9;
+            border-radius: 6px; font-size: 15px; background: white;
+        }
+        input[type="number"]:focus, select:focus {
+            outline: none; border-color: #0b5c9c; box-shadow: 0 0 0 3px rgba(11,92,156,0.15);
+        }
+        .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .btn {
+            padding: 12px 28px; background: #0b5c9c; color: white; border: none;
+            border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;
+        }
+        .btn:hover { background: #084a7e; }
+        .btn-back {
+            background: white; color: #52606d; border: 1px solid #cbd2d9;
+            padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px;
+        }
+        .btn-back:hover { background: #f0f4f8; }
+        .error {
+            background: #fde8e8; color: #b42318; padding: 14px;
+            border-left: 5px solid #e53935; border-radius: 6px; margin-bottom: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar">
+    {% for i in range(1, total_steps + 1) %}
+        <div class="seg {% if i < step %}done{% elif i == step %}current{% endif %}"></div>
+    {% endfor %}
+</div>
+<div class="step-label">Step {{ step }} of {{ total_steps }}</div>
+
+<h1>{{ step_title }}</h1>
+<p class="subtitle">{{ step_subtitle }}</p>
+
+{% if error %}
+    <div class="error"><strong>Please check:</strong> {{ error }}</div>
+{% endif %}
+
+<form method="POST" action="/form/{{ step }}" class="card">
+    {% for f in step_features %}
+        {% set spec = field_specs[f] %}
+        <div class="field">
+            <label for="{{ f }}">{{ spec.label }}</label>
+            <span class="hint">{{ spec.hint }}</span>
+
+            {% if spec.type == "yesno" %}
+                <select id="{{ f }}" name="{{ f }}" required>
+                    <option value="">— Select —</option>
+                    <option value="1" {% if values.get(f) == '1' or values.get(f) == 1 %}selected{% endif %}>Yes</option>
+                    <option value="0" {% if values.get(f) == '0' or values.get(f) == 0 %}selected{% endif %}>No</option>
+                </select>
+
+            {% elif spec.type == "select" %}
+                <select id="{{ f }}" name="{{ f }}" required>
+                    <option value="">— Select —</option>
+                    {% for val, text in spec.options %}
+                        <option value="{{ val }}" {% if values.get(f) == val|string or values.get(f) == val %}selected{% endif %}>{{ text }}</option>
+                    {% endfor %}
+                </select>
+
+            {% else %}
+                <input type="number" id="{{ f }}" name="{{ f }}"
+                       min="{{ spec.min }}" max="{{ spec.max }}" step="{{ spec.step }}"
+                       value="{{ values.get(f, '') }}" required>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="btn-row">
+        {% if step > 1 %}
+            <a href="/form/{{ step - 1 }}" class="btn-back">← Back</a>
+        {% else %}
+            <a href="/" class="btn-back">← Home</a>
+        {% endif %}
+        <button type="submit" class="btn">
+            {% if step < total_steps %}Next →{% else %}See My Result →{% endif %}
+        </button>
+    </div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Risk Screening — Welcome</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+            max-width: 720px; margin: 40px auto; padding: 0 20px;
+            background: #f4f6f8; color: #1f2933; line-height: 1.6;
+        }
+        h1 { color: #0b5c9c; font-size: 32px; margin-bottom: 4px; }
+        .subtitle { color: #52606d; margin-top: 0; margin-bottom: 28px; font-size: 16px; }
+        .card {
+            background: white; border-radius: 10px; padding: 28px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 20px;
+        }
+        .warning {
+            background: #fff3e6; border-left: 5px solid #d97a00;
+            padding: 18px 20px; border-radius: 8px; margin-bottom: 24px;
+        }
+        .warning h3 { margin: 0 0 8px; color: #8a4b00; font-size: 18px; }
+        .warning p { margin: 4px 0; font-size: 14px; }
+        .info { background: #e6f2fb; border-left: 5px solid #0b5c9c; padding: 18px 20px; border-radius: 8px; margin-bottom: 24px; }
+        .info h3 { margin: 0 0 8px; color: #084a7e; font-size: 18px; }
+        .info ol { margin: 8px 0 0 20px; padding: 0; }
+        .info li { margin-bottom: 6px; font-size: 15px; }
+        .btn {
+            display: inline-block; padding: 14px 32px; background: #0b5c9c; color: white;
+            text-decoration: none; border-radius: 8px; font-size: 17px; font-weight: 600;
+            transition: background 0.15s;
+        }
+        .btn:hover { background: #084a7e; }
+        .small { font-size: 13px; color: #7b8794; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Diabetes Risk Screening</h1>
+<p class="subtitle">A quick, offline screening tool based on CDC health survey data.</p>
+
+<div class="warning">
+    <h3>⚠️ Important — Please Read</h3>
+    <p><strong>This is NOT a medical diagnosis.</strong></p>
+    <p>This tool estimates risk using a statistical model trained on survey data. It cannot detect, confirm, or rule out diabetes. Always consult a qualified healthcare professional for real medical advice and testing.</p>
+</div>
+
+<div class="info">
+    <h3>How this works</h3>
+    <ol>
+        <li>You'll answer <strong>{{ total_steps }} short steps</strong> of questions (about 2–3 minutes).</li>
+        <li>Every field has a short explanation if you're unsure.</li>
+        <li>The model estimates your risk from your answers.</li>
+        <li>You'll see a risk band with tailored advice.</li>
+    </ol>
+    <p class="small" style="margin-top: 12px;">No data is sent anywhere. Everything runs on your own computer.</p>
+</div>
+
+<div class="card" style="text-align: center;">
+    <a href="/form/1" class="btn">Start Screening →</a>
+    <p class="small">By continuing, you acknowledge this is an educational tool, not medical advice.</p>
+</div>
+
+</body>
+</html>
