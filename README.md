@@ -6,9 +6,9 @@ A machine learning web application that estimates diabetes risk from health indi
 
 
 
-**Author:** Frederick Galinato
-**Course / Section:** BSCpE CSCU3
-**School Year:** 2026
+Author Frederick Galinato
+Course / Section: BSCpE CSCU3
+School Year: 2026
 
 
 \---
